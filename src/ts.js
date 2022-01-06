@@ -210,6 +210,7 @@ TS.prototype.packetComplete = function(pi) {
 };
 
 TS.STREAM = {
+	PRIVATE_VU: 0x06,
 	PACK_HEADER: 0xBA,
 	SYSTEM_HEADER: 0xBB,
 	PROGRAM_MAP: 0xBC,

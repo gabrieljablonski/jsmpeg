@@ -32,6 +32,24 @@ var Player = function(url, options) {
 		options.wasmModule = this.wasmModule;
 	}
 
+	if (options.vu !== false) {
+		this.vu = {
+			pts: -1,
+			channels: [],
+		};
+		this.vu.write = (pts, buffers) => {
+			this.vu.pts += 1;
+			const channels = buffers[0];
+			if (channels) {
+				const channelCount = channels[0];
+				this.vu.channels = [...channels.slice(1, channelCount + 1)];
+			} else {
+				this.vu.channels = [];
+			}
+		};
+		this.demuxer.connect(JSMpeg.Demuxer.TS.STREAM.PRIVATE_VU, this.vu);
+	}
+
 	if (options.video !== false) {
 		this.video = options.wasmModule
 			? new JSMpeg.Decoder.MPEG1VideoWASM(options)
