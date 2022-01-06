@@ -145,6 +145,7 @@ WebGLRenderer.prototype.allowsClampedTextureData = function() {
 };
 
 WebGLRenderer.prototype.renderProgress = function(progress) {
+	return;
 	var gl = this.gl;
 
 	gl.useProgram(this.loadingProgram);
