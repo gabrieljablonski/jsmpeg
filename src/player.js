@@ -36,6 +36,7 @@ var Player = function(url, options) {
 		this.vu = {
 			pts: -1,
 			channels: [],
+			callback: options.vuCallback || (() => {}),
 		};
 		this.vu.write = (pts, buffers) => {
 			this.vu.pts += 1;
@@ -43,6 +44,7 @@ var Player = function(url, options) {
 			if (channels) {
 				const channelCount = channels[0];
 				this.vu.channels = [...channels.slice(1, channelCount + 1)];
+				this.vu.callback(this.vu.channels, this.vu.pts);
 			} else {
 				this.vu.channels = [];
 			}

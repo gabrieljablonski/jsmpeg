@@ -7,6 +7,9 @@
 			background-color: #111;
 			text-align: center;
 		}
+		canvas {
+			background-color: black;
+		}
 	</style>
 	
 </head>
@@ -15,8 +18,16 @@
 	<script type="text/javascript" src="jsmpeg.min.js"></script>
 	<script type="text/javascript">
 		var canvas = document.getElementById('video-canvas');
-		var url = 'ws://'+document.location.hostname+':8082/';
-		var player = new JSMpeg.Player(url, {canvas: canvas});
+		// var url = 'ws://192.168.1.57/ws/preview_enc_lc_4';
+		var url = 'ws://192.168.7.161:8082/melted.2';
+		var player = new JSMpeg.Player(url, {
+			canvas: canvas, 
+			reconnectInterval: 5, 
+			vuCallback: console.log,
+		});
+		setInterval(() => {
+			// console.log(player.vu.channels);
+		}, 100);
 	</script>
 </body>
 </html>
