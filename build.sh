@@ -112,4 +112,3 @@ uglifyjs jsmpeg.js -o jsmpeg.min.js
 # Cleanup
 rm jsmpeg.js
 rm jsmpeg.wasm
-

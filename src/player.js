@@ -49,7 +49,9 @@ var Player = function(url, options) {
 				this.vu.channels = [];
 			}
 		};
+		// TODO: Remove (backwards compatibility)
 		this.demuxer.connect(JSMpeg.Demuxer.TS.STREAM.PRIVATE_VU, this.vu);
+		this.demuxer.connect(JSMpeg.Demuxer.TS.STREAM.PRIVATE_1, this.vu);
 	}
 
 	if (options.video !== false) {
