@@ -38,6 +38,7 @@ var Player = function(url, options) {
 			channels: [],
 			callback: options.vuCallback || (() => {}),
 		};
+		let resetVuTimeout = 0;
 		this.vu.write = (pts, buffers) => {
 			this.vu.pts += 1;
 			const channels = buffers[0];
@@ -45,6 +46,13 @@ var Player = function(url, options) {
 				const channelCount = channels[0];
 				this.vu.channels = [...channels.slice(1, channelCount + 1)];
 				this.vu.callback(this.vu.channels, this.vu.pts);
+				if (resetVuTimeout) {
+					clearTimeout(resetVuTimeout);
+				}
+				resetVuTimeout = setTimeout(() => {
+					this.vu.channels = this.vu.channels.map(() => 0);
+					this.vu.callback(this.vu.channels, this.vu.pts + 1);
+				}, 1000);
 			} else {
 				this.vu.channels = [];
 			}
